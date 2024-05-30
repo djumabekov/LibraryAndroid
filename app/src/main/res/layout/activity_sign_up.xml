@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E2F1D6"
+    android:orientation="vertical"
+    tools:context=".Activities.SignUpActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolBar_sign_up"
+        app:title="БИБЛИОТЕКА"
+        android:background="#057D9F"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name"
+            android:hint="Имя"
+            android:textColorHint="#025167"
+            android:textStyle="italic"
+            android:textColor="#025167"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ImageViewSignUp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText_last_name"
+            android:hint="Фамилия"
+            android:textColorHint="#025167"
+            android:textStyle="italic"
+            android:textColor="#025167"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintEnd_toEndOf="@id/name"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/emailSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Эл.почта"
+            android:ems="10"
+            android:textColorHint="#025167"
+            android:textStyle="italic"
+            android:textColor="#025167"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editText_last_name" />
+
+        <EditText
+            android:id="@+id/passwordSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            android:hint="Пароль"
+            android:textColorHint="#025167"
+            android:textStyle="italic"
+            android:textColor="#025167"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="@+id/emailSignUp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/emailSignUp"
+            app:layout_constraintTop_toBottomOf="@+id/emailSignUp" />
+
+        <EditText
+            android:id="@+id/passwordSignUp_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColorHint="#025167"
+            android:textStyle="italic"
+            android:textColor="#025167"
+            android:layout_marginTop="10dp"
+            android:hint="Повторите пароль"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="@+id/passwordSignUp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/passwordSignUp"
+            app:layout_constraintTop_toBottomOf="@+id/passwordSignUp" />
+
+        <Button
+            android:id="@+id/signUpbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#057D9F"
+            android:text="Зарегистрироваться"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/passwordSignUp_1"
+            app:layout_constraintEnd_toEndOf="@+id/passwordSignUp_1"
+            app:layout_constraintStart_toStartOf="@+id/passwordSignUp_1" />
+
+        <ProgressBar
+            android:id="@+id/progressBarSignUp"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/loginText"
+            app:layout_constraintStart_toStartOf="@+id/loginText"
+            app:layout_constraintTop_toBottomOf="@+id/loginText" />
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/ImageViewSignUp"
+            app:layout_constraintBottom_toTopOf="@+id/name"
+            app:layout_constraintEnd_toEndOf="@+id/emailSignUp"
+            app:layout_constraintStart_toStartOf="@+id/emailSignUp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/book6"
+            android:layout_marginTop="30dp"
+            />
+
+
+        <TextView
+            android:id="@+id/loginText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Есть аккаунт? Войти"
+            android:textStyle="italic"
+            android:textColor="#025167"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/signUpbutton"
+            app:layout_constraintStart_toStartOf="@+id/signUpbutton"
+            app:layout_constraintTop_toBottomOf="@+id/signUpbutton" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
