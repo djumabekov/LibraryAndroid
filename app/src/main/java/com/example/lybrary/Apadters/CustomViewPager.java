@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// Adapter for ViewPager
+// Адаптер управления фрагментами
 public class CustomViewPager extends FragmentPagerAdapter {
 
     private List<Fragment> fragmentList;
@@ -39,6 +39,7 @@ public class CustomViewPager extends FragmentPagerAdapter {
         nameList.add(name);
     }
 
+    //названия фрагментов для ТабЛайаут
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {

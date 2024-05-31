@@ -75,6 +75,8 @@ public class LogInActivity extends AppCompatActivity {
                 }
                 progressBarLogin.setVisibility(View.VISIBLE);
                 try{
+
+                    //пытаемся выполнить вход через FirebaseAuth
                     auth.signInWithEmailAndPassword(emailOfuser, passwordOfuser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -95,6 +97,7 @@ public class LogInActivity extends AppCompatActivity {
         });
     }
 
+    //метод перехода в регистрацию
     private void signUp(){
         signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -152,11 +152,12 @@ public class DowloadedBooksFragment extends Fragment {
                 adapter.notifyItemRemoved(position);
                 Snackbar snackbar = Snackbar.make(recyclerView_downloaded_books, deletedBook.getBookName()
                                 , Snackbar.LENGTH_LONG)
-                        .setAction("undo", view -> {
+                        .setAction("отмена", view -> {
                             bookList.add(position, deletedBook);
                             adapter.notifyItemInserted(position);
 
                         });
+                //показываем снэкбар для возможности отмены
                 snackbar.show();
                 // удаляем запись с БД
                 snackbar.addCallback(new Snackbar.Callback() {
@@ -164,9 +165,8 @@ public class DowloadedBooksFragment extends Fragment {
                     @Override
                     public void onDismissed(Snackbar snackbar, int event) {
                         if (event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT) {
-                            // Snackbar closed on its own
+                            // снэкбар закрылся, отмены не было
                             deleteBookForUser(user.getId(), deletedBook.getId());
-
                         }
                     }
 
@@ -177,9 +177,11 @@ public class DowloadedBooksFragment extends Fragment {
                 });
             }
 
+            //визуализируем свайп
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
 
+                //настраиваем фон и иконку при свайпе
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                         .addBackgroundColor(ContextCompat.getColor(getContext(), R.color.red))
                         .addActionIcon(R.drawable.baseline_delete_24)
@@ -204,7 +206,6 @@ public class DowloadedBooksFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        //Toast.makeText(getContext(),"FRAGMENT METHODUNDAYIZ",Toast.LENGTH_LONG).show();
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem searchItem = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) searchItem.getActionView();

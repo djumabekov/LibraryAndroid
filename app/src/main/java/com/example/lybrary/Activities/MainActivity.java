@@ -34,14 +34,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private final int STORAGE_PERMISSION_CODE = 1;
-    private List<User> listUser = new ArrayList<>();
-    private List<Book> listBook = new ArrayList<>();
-    private CustomViewPager customViewPager;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private final int STORAGE_PERMISSION_CODE = 1; //код запроса разрешения на чтение и запись
+    private List<User> listUser = new ArrayList<>(); //список юзеров
+    private List<Book> listBook = new ArrayList<>(); //список книг
+    private CustomViewPager customViewPager; //адаптер для viewPager
+    private TabLayout tabLayout; //вкладки
+    private ViewPager viewPager; //переключение между фрагментами
     private MaterialToolbar toolbar;
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth; // аутентификация Firebase
 
 
     @Override
@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         runTimePermissions();
     }
 
-    //инициализация
     private void init(){
         tabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.view_pager);
@@ -92,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    // обработка нажатия
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // действие по выбору опций тулбара
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // проверка и установка разрешений для чтения и записи в сторадж
+    // проверка разрешений для чтения и записи в сторадж
     private void runTimePermissions(){
         if(ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
@@ -122,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
             requestStoragePermission();
         }
     }
+
+    //обработка результатов запроса разрешений
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -136,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    // заправшиваем разрешение на чтение и запись в каталог
     private void requestStoragePermission(){
 
         if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)

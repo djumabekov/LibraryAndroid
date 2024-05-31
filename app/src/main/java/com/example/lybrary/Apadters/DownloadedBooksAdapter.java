@@ -28,8 +28,8 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 public class DownloadedBooksAdapter extends RecyclerView.Adapter<DownloadedBooksAdapter.ViewHolder> implements Filterable {
 
-    private List<Book> bookList;
-    private List<Book> bookListFull;
+    private List<Book> bookList; //список доступных книг
+    private List<Book> bookListFull; //полный набор книг для фильтрации
     Activity activity;
     Context context;
 
@@ -48,8 +48,10 @@ public class DownloadedBooksAdapter extends RecyclerView.Adapter<DownloadedBooks
         return new ViewHolder(view);
     }
 
+    //связываем данные из bookList во ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //загрузка изображения книги
         Picasso.get().load(bookList.get(position).getPhotoPath()).into(holder.book_image_downloaded);
         holder.book_name_downloaded.setText(bookList.get(position).getBookName());
 
@@ -68,6 +70,7 @@ public class DownloadedBooksAdapter extends RecyclerView.Adapter<DownloadedBooks
         return filter;
     }
 
+    //фильтрация списка
     Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
@@ -90,6 +93,7 @@ public class DownloadedBooksAdapter extends RecyclerView.Adapter<DownloadedBooks
             return filterResults;
         }
 
+        //обновляем bookList и уведомляем адаптер об изменениях
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             bookList.clear();
@@ -98,6 +102,7 @@ public class DownloadedBooksAdapter extends RecyclerView.Adapter<DownloadedBooks
         }
     };
 
+    //инициализируем элементы представления, используемые для отображения книги.
     public class ViewHolder extends  RecyclerView.ViewHolder{
 
         TextView book_name_downloaded;
@@ -116,7 +121,7 @@ public class DownloadedBooksAdapter extends RecyclerView.Adapter<DownloadedBooks
         }
     }
 
-    // переход в PDFViewActivity и передаем имя книги
+    // запускаем PDFViewActivity и передаем имя книги
     private void displayBook(String book_name){
         Intent intent = new Intent(context, PDFViewActivity.class);
         intent.putExtra("book_name",book_name);

@@ -1,9 +1,6 @@
 package com.example.lybrary.Activities;
-
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.lybrary.Apis.Api;
 import com.example.lybrary.R;
 import com.example.lybrary.Services.UserService;
@@ -30,7 +26,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,15 +36,15 @@ import retrofit2.Response;
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText passwordSignUp, passwordSignUp_1, emailSignUp, name, editText_last_name;
-    private TextView loginText;
-    private Button signUpbutton;
+    private TextView loginText; //ссылка перехода на экран входа
+    private Button signUpbutton; //кнопка регистрации
     private ImageView ImageViewSignUp;
-    private ProgressBar progressBarSignUp;
-    private MaterialToolbar toolbar;
+    private ProgressBar progressBarSignUp; // прогрессбар регистрации
+    private MaterialToolbar toolbar; //заголовок и кнопка назад
     FirebaseAuth auth;
     DatabaseReference reference;
     FirebaseUser user;
-    UserService userService;
+    UserService userService; //апи
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         init();
         signUp();
+        //переход на экран входа при нажатии
         loginText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,7 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void init(){
+    private void init() {
         passwordSignUp = findViewById(R.id.passwordSignUp);
         passwordSignUp_1 = findViewById(R.id.passwordSignUp_1);
         emailSignUp = findViewById(R.id.emailSignUp);
@@ -85,8 +81,8 @@ public class SignUpActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    // регистрация firebase через почту и пароль
-    private void signUp(){
+    // регистрация юзера в firebase и в БД
+    private void signUp() {
         signUpbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,11 +94,11 @@ public class SignUpActivity extends AppCompatActivity {
                 String password2 = passwordSignUp_1.getText().toString().trim();
 
 
-                if(TextUtils.isEmpty(namee)){
+                if (TextUtils.isEmpty(namee)) {
                     name.setError("Введите имя");
                     return;
                 }
-                if(TextUtils.isEmpty(last_name)){
+                if (TextUtils.isEmpty(last_name)) {
                     name.setError("Введите фамилию");
                     return;
                 }
@@ -125,16 +121,16 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-
+                //отображаем прогресбар
                 progressBarSignUp.setVisibility(View.VISIBLE);
 
+                //создаем юзера в Firebase и в БД
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            setUserInfoIntoDb(namee,last_name, email);
-                            //TODO BURASI
+                            setUserInfoIntoDb(namee, last_name, email);
 
                             User user = new User(namee, last_name, email); // create user
                             System.out.println(user);
@@ -154,6 +150,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    //метод добавления юзера в БД
     private void postAddUserToApi(User user) {
 
         userService = Api.getUserService();

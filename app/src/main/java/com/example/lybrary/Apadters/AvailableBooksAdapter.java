@@ -46,12 +46,12 @@ import retrofit2.Response;
 
 public class AvailableBooksAdapter extends RecyclerView.Adapter<AvailableBooksAdapter.ViewHolder> implements Filterable{
 
-    private List<Book> bookList;
-    private List<Book> bookListFull;
+    private List<Book> bookList; //список доступных книг
+    private List<Book> bookListFull;//полный набор книг для фильтрации
     Activity activity;
     Context context;
-    DatabaseReference databaseReference;
-    FirebaseUser firebaseUser;
+    DatabaseReference databaseReference; //Firebase БД
+    FirebaseUser firebaseUser; //Firebase пользователя
     BookService bookService;
 
     public AvailableBooksAdapter(List<Book> bookList, Activity activity, Context context) {
@@ -72,13 +72,16 @@ public class AvailableBooksAdapter extends RecyclerView.Adapter<AvailableBooksAd
         return new ViewHolder(view);
     }
 
+    //связываем данные из bookList с ViewHolder
     @Override
     public void onBindViewHolder(@NonNull AvailableBooksAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        //загрузка изображения книги
         Picasso.get().load(bookList.get(position).getPhotoPath()).into(holder.book_image_available);
         holder.text_name_view.setText(bookList.get(position).getBookName());
         holder.text_page_view.setText(String.valueOf(bookList.get(position).getPages()));
         holder.text_title_view.setText(bookList.get(position).getTitle());
 
+        //событие на нажатие кнопки загрузки книги
         holder.downloadbtn.setOnClickListener(view -> {
             downloadBook(bookList.get(position).getLink(), bookList.get(position).getBookName()+".pdf");
             getCurrentUserId(bookList.get(position).getId());
@@ -90,6 +93,7 @@ public class AvailableBooksAdapter extends RecyclerView.Adapter<AvailableBooksAd
         return bookList.size();
     }
 
+    //инициализируем элементы представления, используемые для отображения книги.
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView book_name_available, text_name_view, text_page_view, text_title_view;
@@ -112,6 +116,7 @@ public class AvailableBooksAdapter extends RecyclerView.Adapter<AvailableBooksAd
         }
     }
 
+    //загружаем книгу
     private void downloadBook(String url, String title) {
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setTitle(title);
@@ -121,6 +126,7 @@ public class AvailableBooksAdapter extends RecyclerView.Adapter<AvailableBooksAd
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, title);
 
+        //используем DownloadManager для загрузки
         DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
         downloadManager.enqueue(request);
 
@@ -128,6 +134,7 @@ public class AvailableBooksAdapter extends RecyclerView.Adapter<AvailableBooksAd
 
     }
 
+    //получаем текущего юзера
     private void getCurrentUserId(int bookId) {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -152,6 +159,8 @@ public class AvailableBooksAdapter extends RecyclerView.Adapter<AvailableBooksAd
             }
         });
     }
+
+    //добавляем книгу для юзера
     private void addBookForUser(int userId, int bookId) {
         bookService = Api.getBookService();
         Call<Book> call = bookService.addBookForUser(userId,bookId);
@@ -169,13 +178,14 @@ public class AvailableBooksAdapter extends RecyclerView.Adapter<AvailableBooksAd
 
     }
 
-    // поиск
+    // фильтрация списка
     @Override
     public Filter getFilter() {
         return bookFilter;
     }
 
     private Filter bookFilter = new Filter() {
+        //осуществляем фильтрацию на основе веденного текста
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             List<Book> bookListFiltered = new ArrayList<>();
@@ -196,6 +206,7 @@ public class AvailableBooksAdapter extends RecyclerView.Adapter<AvailableBooksAd
             return filterResults;
         }
 
+        //обновляем bookList и уведомляем адаптер об изменениях
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             bookList.clear();
