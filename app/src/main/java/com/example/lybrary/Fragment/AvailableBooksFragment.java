@@ -63,7 +63,7 @@ public class AvailableBooksFragment extends Fragment {
 
     }
 
-    // получаем книги с БД
+    //  получаем книги с БД
     private void getBooks() {
 
         bookService = Api.getBookService();

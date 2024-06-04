@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout; //вкладки
     private ViewPager viewPager; //переключение между фрагментами
     private MaterialToolbar toolbar;
-    private FirebaseAuth firebaseAuth; // аутентификация Firebase
+    private FirebaseAuth firebaseAuth; //аутентификация Firebase
 
 
     @Override

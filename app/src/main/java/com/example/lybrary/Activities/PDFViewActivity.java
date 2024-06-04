@@ -26,7 +26,7 @@ public class PDFViewActivity extends AppCompatActivity {
         init();
         Intent intent = getIntent();
         String book_name = intent.getStringExtra("book_name"); //извлекаем название книги
-        //загружаем PDF из каталога по названию книги
+        // загружаем PDF из каталога по названию книги
         pdfView.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),book_name+".pdf")).show();
     }
 

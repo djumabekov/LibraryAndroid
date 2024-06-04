@@ -72,7 +72,7 @@ public class AvailableBooksAdapter extends RecyclerView.Adapter<AvailableBooksAd
         return new ViewHolder(view);
     }
 
-    //связываем данные из bookList с ViewHolder
+    // связываем данные из bookList с ViewHolder
     @Override
     public void onBindViewHolder(@NonNull AvailableBooksAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         //загрузка изображения книги

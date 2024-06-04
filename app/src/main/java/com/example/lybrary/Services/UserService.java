@@ -15,7 +15,7 @@ import retrofit2.http.Path;
 
 public interface UserService {
 
-    @GET("users/{userId}")  //получаем юзера
+    @GET("users/{userId}")  // получаем юзера
     Call<User> getUser(@Path("userId") int userId);
 
     @POST("users") // регистрируем юзера
