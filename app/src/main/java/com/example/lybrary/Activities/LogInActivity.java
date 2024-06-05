@@ -55,7 +55,7 @@ public class LogInActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolBar_login);
         setSupportActionBar(toolbar);
         toolbar.setLogo(R.drawable.book3);
-        toolbar.setTitle("LOG IN");
+        toolbar.setTitle("ВОЙТИ");
     }
 
     private void login(){

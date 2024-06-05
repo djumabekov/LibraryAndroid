@@ -30,6 +30,8 @@ import com.example.lybrary.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +90,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_app_bar, menu);
+
+        // находим элемент меню "добавить книгу"
+        MenuItem addBookMenuItem = menu.findItem(R.id.add_book);
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        // проверяем текущего пользователя
+        if (currentUser != null && currentUser.getEmail().equals("admin@mail.ru")) {
+            // если админ отображаем "добавить книгу"
+            addBookMenuItem.setVisible(true);
+        } else {
+            // иначе скрываем "добавить книгу"
+            addBookMenuItem.setVisible(false);
+        }
         return true;
     }
 
@@ -104,6 +119,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.log_out:
                 firebaseAuth.signOut();
                 startActivity(new Intent(MainActivity.this, LogInActivity.class));
+                return true;
+
+            case R.id.add_book:
+                startActivity(new Intent(MainActivity.this, AddBookActivity.class));
                 return true;
 
             default:

@@ -15,4 +15,10 @@
         android:contentDescription="content_description_more"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/add_book"
+        android:title="добавить книгу"
+        android:contentDescription="content_description_more"
+        app:showAsAction="never" />
+
 </menu>
